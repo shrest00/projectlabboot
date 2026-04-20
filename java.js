@@ -1,23 +1,38 @@
-  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
-  document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => new bootstrap.Popover(el));
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el))
 
-  function fireToast(title, body) {
-    document.getElementById('toastTitle').textContent = title;
-    document.getElementById('toastBody').textContent = body;
-    new bootstrap.Toast(document.getElementById('mainToast'), { delay: 4500 }).show();
-  }
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(el => new bootstrap.Popover(el))
 
-  document.getElementById('alertDemoBtn').addEventListener('click', () =>
-    fireToast('Reminder 💊', "Time for your Vitamin D supplement — don't forget your 1:00 PM dose!"));
+document.addEventListener('DOMContentLoaded', function() {
+    const signupForm = document.getElementById('signup-form');
+    const thankYouMessage = document.getElementById('thank-you-message');
+    const formText = document.getElementById('form-text');
 
-  function showCheckinToast() {
-    fireToast('Check-in Saved ✅', 'Your daily wellness data has been recorded. Keep it up, Alex!');
-  }
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+           
+            event.preventDefault();
 
-  function handleSubscribe() {
-    const email = document.getElementById('wellnessEmail').value.trim();
-    fireToast(
-      email ? 'Subscribed! 🌿' : 'Email Required',
-      email ? 'Your first Wellness Brief arrives this Monday morning.' : 'Please enter your email address to subscribe.'
-    );
-  }
+            
+            const email = document.getElementById('userEmail').value;
+            console.log("Form submitted for:", email);
+
+            
+            signupForm.classList.add('d-none');
+            formText.classList.add('d-none');
+
+           
+            thankYouMessage.classList.remove('d-none');
+            
+           
+            const toastElement = document.getElementById('mainToast');
+            if (toastElement) {
+                const toastBody = document.getElementById('toastBody');
+                toastBody.innerText = "Subscription successful!";
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }
+        });
+    }
+});
