@@ -1,0 +1,13 @@
+.navbar { 
+    background:#fff !important; 
+    border-bottom:1px solid #e8ede9;
+    padding:.85rem 0; 
+}
+
+ .user-chip { 
+    display:flex; 
+    align-items:center;
+    border-radius:2rem; 
+    background:#c7efc1; 
+    border:none; 
+     transition:background 0.3s ease;}
